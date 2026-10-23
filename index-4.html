@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Secure Login System | Cyber Security Project</title>
+<meta name="description" content="A secure authentication system in Python with scrypt hashing, TOTP 2FA, account lockout and audit logging.">
+<style>
+  :root{--bg:#f4f6fb;--card:#ffffff;--text:#1b2433;--muted:#5b6678;--accent:#2f5bea;--border:#d9dfeb;--code:#eef1f8}
+  @media (prefers-color-scheme:dark){
+    :root{--bg:#0f1420;--card:#192030;--text:#e8ecf5;--muted:#9aa6bd;--accent:#6d8cff;--border:#2b3550;--code:#111827}
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+  header{padding:56px 20px 40px;text-align:center}
+  header h1{margin:0 0 10px;font-size:2rem}
+  header p{margin:0 auto;max-width:620px;color:var(--muted)}
+  .btns{margin-top:24px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+  .btn{display:inline-block;padding:12px 22px;border-radius:10px;background:var(--accent);color:#fff;text-decoration:none;font-weight:600}
+  .btn.alt{background:transparent;color:var(--accent);border:1px solid var(--accent)}
+  main{max-width:900px;margin:0 auto;padding:0 20px 60px}
+  h2{margin:36px 0 14px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px}
+  .card h3{margin:0 0 6px;font-size:1.05rem}
+  .card p{margin:0;color:var(--muted);font-size:.95rem}
+  pre{background:var(--code);border:1px solid var(--border);border-radius:10px;padding:14px;overflow-x:auto}
+  table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+  th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--border);font-size:.95rem;vertical-align:top}
+  th{background:var(--code)}
+  footer{text-align:center;color:var(--muted);padding:24px;border-top:1px solid var(--border);font-size:.9rem}
+</style>
+</head>
+<body>
+<header>
+  <h1>&#128274; Secure Login System</h1>
+  <p>A cyber security project: a Python authentication system built with modern, industry-standard protections. Command-line and Flask web versions.</p>
+  <div class="btns">
+    <!-- TODO: replace YOUR-USERNAME with your GitHub username -->
+    <a class="btn" href="https://github.com/YOUR-USERNAME/secure-login-system">View source code</a>
+    <a class="btn alt" href="https://github.com/YOUR-USERNAME/secure-login-system/blob/main/Project_Report.docx">Project report</a>
+  </div>
+</header>
+
+<main>
+  <h2>Security features</h2>
+  <div class="grid">
+    <div class="card"><h3>scrypt hashing</h3><p>Memory-hard hashing with a unique random salt per user and an optional server-side pepper.</p></div>
+    <div class="card"><h3>Brute-force defence</h3><p>Account lockout after 5 failed attempts, plus per-IP rate limiting on the web version.</p></div>
+    <div class="card"><h3>Two-factor auth</h3><p>TOTP (RFC 6238) compatible with Google Authenticator and Authy.</p></div>
+    <div class="card"><h3>Injection safe</h3><p>Parameterized SQL queries and autoescaped templates stop SQL injection and XSS.</p></div>
+    <div class="card"><h3>No enumeration</h3><p>Generic errors and a dummy-hash check hide which usernames exist.</p></div>
+    <div class="card"><h3>Safe sessions</h3><p>256-bit random tokens stored only as hashes, expiring in 15 minutes, with CSRF protection.</p></div>
+  </div>
+
+  <h2>Threats and defences</h2>
+  <table>
+    <tr><th>Threat</th><th>Mitigation</th></tr>
+    <tr><td>Database theft</td><td>Salted scrypt hashes, pepper, hashed session tokens</td></tr>
+    <tr><td>Brute force / dictionary</td><td>Lockout, rate limiting, password policy</td></tr>
+    <tr><td>SQL injection</td><td>Parameterized queries</td></tr>
+    <tr><td>Timing attacks</td><td>Constant-time comparison</td></tr>
+    <tr><td>CSRF / clickjacking</td><td>CSRF tokens, SameSite cookies, CSP, X-Frame-Options</td></tr>
+    <tr><td>Stolen password</td><td>TOTP two-factor authentication</td></tr>
+  </table>
+
+  <h2>Run it</h2>
+<pre>git clone https://github.com/YOUR-USERNAME/secure-login-system.git
+cd secure-login-system
+
+# Command-line version (no dependencies)
+python secure_login.py
+
+# Web version
+pip install -r requirements.txt
+python app.py        # http://127.0.0.1:5000</pre>
+
+  <h2>Tech stack</h2>
+  <p>Python 3 &middot; SQLite &middot; Flask &middot; Gunicorn &middot; hashlib / hmac / secrets</p>
+</main>
+
+<footer>Educational project. Review and harden before production use.</footer>
+</body>
+</html>

@@ -1,0 +1,8 @@
+# Secure Login System - dependencies (Python 3.8+)
+#
+# The command-line version (secure_login.py) needs NOTHING beyond the
+# Python standard library.
+#
+# The web version (app.py) needs:
+Flask>=3.0
+gunicorn>=21.2   # production server (Render, Railway, etc.)
